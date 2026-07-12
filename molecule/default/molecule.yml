@@ -1,0 +1,53 @@
+---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: collections/requirements.yml
+    collections-path: .cache/ansible/collections
+driver:
+  name: docker
+platforms:
+  - name: ubuntu-server-2404
+    image: geerlingguy/docker-ubuntu2404-ansible:latest
+    groups:
+      - ubuntu_servers
+    command: /lib/systemd/systemd
+    privileged: true
+    cgroupns_mode: host
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      roles_path: ${MOLECULE_PROJECT_DIRECTORY}/roles
+      collections_path: ${MOLECULE_PROJECT_DIRECTORY}/.cache/ansible/collections
+  inventory:
+    group_vars:
+      all:
+        admin_user_name: portfolio_admin
+        admin_user_groups: [sudo, docker]
+        admin_authorized_keys:
+          - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAABAgMEBQYHCAkKCwwNDg8QERITFBUWFxgZGhscHR4f molecule-test"
+        ssh_password_authentication: false
+        ufw_allowed_tcp_ports: [22]
+        # Avoid touching non-namespaced host kernel settings from a privileged container.
+        safe_sysctl_settings:
+          net.ipv4.tcp_syncookies: 1
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - dependency
+    - destroy
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+    - destroy

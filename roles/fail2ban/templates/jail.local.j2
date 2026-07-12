@@ -1,0 +1,12 @@
+# Managed by Ansible. Local edits will be overwritten.
+[DEFAULT]
+bantime = {{ fail2ban_bantime }}
+findtime = {{ fail2ban_findtime }}
+maxretry = {{ fail2ban_maxretry }}
+backend = {{ fail2ban_backend }}
+banaction = ufw
+
+[sshd]
+enabled = true
+port = {{ ssh_port | default(22) }}
+mode = normal

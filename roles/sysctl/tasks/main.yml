@@ -1,0 +1,11 @@
+---
+- name: Apply safe kernel and network settings
+  ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_file: /etc/sysctl.d/99-ansible-hardening.conf
+    reload: true
+  loop: "{{ safe_sysctl_settings | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"

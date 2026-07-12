@@ -1,0 +1,13 @@
+---
+docker_apt_channel: stable
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+docker_users:
+  - "{{ admin_user_name }}"
+docker_log_max_size: 10m
+docker_log_max_file: "3"
+docker_live_restore: true

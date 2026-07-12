@@ -1,0 +1,37 @@
+---
+- name: Verify managed server health
+  hosts: ubuntu_servers
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: Verify required services are running
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['ssh.service'].state == 'running'
+          - ansible_facts.services['fail2ban.service'].state == 'running'
+          - ansible_facts.services['docker.service'].state == 'running'
+          - ansible_facts.services['systemd-timesyncd.service'].state == 'running'
+
+    - name: Validate OpenSSH configuration
+      ansible.builtin.command: sshd -t
+      changed_when: false
+
+    - name: Check UFW status
+      ansible.builtin.command: ufw status
+      register: ufw_status
+      changed_when: false
+      failed_when: "'Status: active' not in ufw_status.stdout"
+
+    - name: Check Docker daemon
+      ansible.builtin.command: docker info
+      changed_when: false
+
+    - name: Check time synchronization
+      ansible.builtin.command: timedatectl show --property=NTPSynchronized --value
+      register: ntp_status
+      changed_when: false
+      failed_when: ntp_status.stdout | trim not in ['yes', 'no']

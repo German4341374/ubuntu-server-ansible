@@ -1,0 +1,39 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Check administrator account
+      ansible.builtin.getent:
+        database: passwd
+        key: portfolio_admin
+
+    - name: Check expected files
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop:
+        - /etc/ssh/sshd_config.d/00-ansible-hardening.conf
+        - /etc/fail2ban/jail.local
+        - /etc/docker/daemon.json
+        - /etc/sysctl.d/99-ansible-hardening.conf
+        - /srv/apps
+        - /srv/backups
+      register: managed_files
+
+    - name: Assert managed files exist
+      ansible.builtin.assert:
+        that: item.stat.exists
+      loop: "{{ managed_files.results }}"
+
+    - name: Validate OpenSSH configuration
+      ansible.builtin.command: sshd -t
+      changed_when: false
+
+    - name: Verify Docker Compose plugin
+      ansible.builtin.command: docker compose version
+      changed_when: false
+
+    - name: Verify Fail2ban configuration
+      ansible.builtin.command: fail2ban-client -t
+      changed_when: false

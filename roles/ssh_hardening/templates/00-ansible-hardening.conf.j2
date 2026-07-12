@@ -1,0 +1,17 @@
+# Managed by Ansible. Keep a console session open while first applying this file.
+Port {{ ssh_port }}
+PubkeyAuthentication {{ 'yes' if ssh_pubkey_authentication else 'no' }}
+PasswordAuthentication {{ 'yes' if ssh_password_authentication else 'no' }}
+KbdInteractiveAuthentication no
+PermitEmptyPasswords no
+PermitRootLogin {{ ssh_permit_root_login }}
+MaxAuthTries {{ ssh_max_auth_tries }}
+LoginGraceTime {{ ssh_login_grace_time }}
+ClientAliveInterval {{ ssh_client_alive_interval }}
+ClientAliveCountMax {{ ssh_client_alive_count_max }}
+X11Forwarding {{ 'yes' if ssh_x11_forwarding else 'no' }}
+AllowAgentForwarding {{ 'yes' if ssh_allow_agent_forwarding else 'no' }}
+AllowTcpForwarding {{ 'yes' if ssh_allow_tcp_forwarding else 'no' }}
+{% if ssh_allowed_users | length > 0 %}
+AllowUsers {{ ssh_allowed_users | join(' ') }}
+{% endif %}

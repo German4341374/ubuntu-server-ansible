@@ -1,0 +1,8 @@
+---
+unattended_upgrades_enabled: true
+unattended_upgrades_update_interval: 1
+unattended_upgrades_download_interval: 1
+unattended_upgrades_autoclean_interval: 7
+unattended_upgrades_remove_unused_dependencies: true
+unattended_upgrades_automatic_reboot: false
+unattended_upgrades_automatic_reboot_time: "04:00"

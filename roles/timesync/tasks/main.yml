@@ -1,0 +1,28 @@
+---
+- name: Install systemd time synchronization
+  ansible.builtin.apt:
+    name: systemd-timesyncd
+    state: present
+
+- name: Create timesyncd configuration directory
+  ansible.builtin.file:
+    path: /etc/systemd/timesyncd.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Configure NTP servers
+  ansible.builtin.template:
+    src: 99-ansible.conf.j2
+    dest: /etc/systemd/timesyncd.conf.d/99-ansible.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart systemd-timesyncd
+
+- name: Enable and start systemd-timesyncd
+  ansible.builtin.service:
+    name: systemd-timesyncd
+    enabled: true
+    state: started

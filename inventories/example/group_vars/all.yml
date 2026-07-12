@@ -1,0 +1,28 @@
+---
+# Documentation-only addresses in hosts.yml come from RFC 5737 and are not routable.
+admin_user_name: portfolio_admin
+admin_user_groups:
+  - sudo
+  - docker
+
+# Supply keys through a Vault-encrypted vars file in a real inventory.
+admin_authorized_keys: []
+
+ssh_port: 22
+ssh_password_authentication: false
+ssh_permit_root_login: "prohibit-password"
+ssh_allowed_users: []
+
+ufw_allowed_tcp_ports:
+  - 22
+ufw_allowed_udp_ports: []
+
+application_directories:
+  - path: /srv/apps
+    owner: "{{ admin_user_name }}"
+    group: "{{ admin_user_name }}"
+    mode: "0750"
+  - path: /srv/backups
+    owner: root
+    group: "{{ admin_user_name }}"
+    mode: "0750"

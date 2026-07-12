@@ -1,0 +1,19 @@
+---
+- name: Bootstrap administrator access
+  hosts: ubuntu_servers
+  become: true
+  gather_facts: true
+  serial: 1
+
+  pre_tasks:
+    - name: Verify supported operating system
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution == "Ubuntu"
+          - ansible_distribution_major_version in ["22", "24"]
+        fail_msg: "This project supports Ubuntu Server 22.04 and 24.04."
+      tags: [always]
+
+  roles:
+    - role: admin_user
+      tags: [bootstrap, users]

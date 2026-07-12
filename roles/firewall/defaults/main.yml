@@ -1,0 +1,7 @@
+---
+ufw_default_incoming_policy: deny
+ufw_default_outgoing_policy: allow
+ufw_allowed_tcp_ports:
+  - 22
+ufw_allowed_udp_ports: []
+ufw_rate_limit_ssh: true

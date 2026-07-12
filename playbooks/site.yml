@@ -1,0 +1,40 @@
+---
+- name: Configure and harden Ubuntu servers
+  hosts: ubuntu_servers
+  become: true
+  gather_facts: true
+  serial: "{{ rollout_serial | default(1) }}"
+
+  pre_tasks:
+    - name: Verify supported operating system and architecture
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution == "Ubuntu"
+          - ansible_distribution_major_version in ["22", "24"]
+          - ansible_architecture in ["x86_64", "aarch64"]
+        fail_msg: "Supported targets are Ubuntu Server 22.04/24.04 on x86_64 or ARM64."
+      tags: [always]
+
+  roles:
+    - role: common
+      tags: [common, packages]
+    - role: admin_user
+      tags: [users]
+    - role: directories
+      tags: [directories]
+    - role: timesync
+      tags: [timesync]
+    - role: unattended_upgrades
+      tags: [updates]
+    - role: sysctl
+      tags: [sysctl, hardening]
+    - role: docker
+      tags: [docker]
+    - role: fail2ban
+      tags: [fail2ban, hardening]
+    - role: firewall
+      tags: [firewall, hardening]
+    - role: logrotate
+      tags: [logging]
+    - role: ssh_hardening
+      tags: [ssh, hardening]

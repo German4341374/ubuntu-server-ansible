@@ -1,0 +1,11 @@
+---
+profile: production
+strict: true
+offline: true
+exclude_paths:
+  - .cache/
+  - .venv/
+  - .vagrant/
+skip_list:
+  - yaml[line-length]
+  - var-naming[no-role-prefix]

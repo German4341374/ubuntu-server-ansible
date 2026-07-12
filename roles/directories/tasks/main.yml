@@ -1,0 +1,11 @@
+---
+- name: Create managed application and backup directories
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+  loop: "{{ application_directories }}"
+  loop_control:
+    label: "{{ item.path }}"

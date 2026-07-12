@@ -1,0 +1,6 @@
+---
+timesync_ntp_servers:
+  - time.cloudflare.com
+  - time.google.com
+timesync_fallback_ntp_servers:
+  - ntp.ubuntu.com

@@ -1,0 +1,15 @@
+---
+- name: Refresh apt cache when stale
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: "{{ common_apt_cache_valid_time }}"
+
+- name: Install common administration packages
+  ansible.builtin.apt:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: Set system timezone
+  community.general.timezone:
+    name: "{{ system_timezone | default('Etc/UTC') }}"
+  notify: Restart cron

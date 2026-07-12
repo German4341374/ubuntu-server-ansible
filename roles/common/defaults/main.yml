@@ -1,0 +1,17 @@
+---
+common_packages:
+  - bash-completion
+  - ca-certificates
+  - curl
+  - git
+  - gnupg
+  - htop
+  - jq
+  - lsb-release
+  - nano
+  - rsync
+  - tmux
+  - tree
+  - unzip
+  - vim
+common_apt_cache_valid_time: 3600

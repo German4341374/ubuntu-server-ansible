@@ -1,0 +1,14 @@
+---
+- name: Prepare test instance
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Wait for systemd to become ready
+      ansible.builtin.command: systemctl is-system-running  # noqa command-instead-of-module
+      register: systemd_status
+      changed_when: false
+      failed_when: systemd_status.rc not in [0, 1]
+      retries: 10
+      delay: 2
+      until: systemd_status.rc in [0, 1]

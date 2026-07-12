@@ -1,0 +1,14 @@
+# Managed by Ansible.
+{{ managed_log_paths | join(' ') }} {
+    {{ logrotate_frequency }}
+    rotate {{ logrotate_retention }}
+    maxsize {{ logrotate_maxsize }}
+{% if logrotate_compress %}
+    compress
+    delaycompress
+{% endif %}
+    missingok
+    notifempty
+    copytruncate
+    su root adm
+}

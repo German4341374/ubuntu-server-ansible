@@ -1,0 +1,37 @@
+---
+- name: Ensure OpenSSH server is installed
+  ansible.builtin.apt:
+    name: openssh-server
+    state: present
+
+- name: Ensure SSH configuration include directory exists
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Remove superseded late-loading SSH drop-in
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config.d/99-ansible-hardening.conf
+    state: absent
+  notify: Validate and reload ssh
+
+- name: Install OpenSSH hardening drop-in
+  ansible.builtin.template:
+    src: 00-ansible-hardening.conf.j2
+    dest: /etc/ssh/sshd_config.d/00-ansible-hardening.conf
+    owner: root
+    group: root
+    mode: "0600"
+  notify: Validate and reload ssh
+
+- name: Enable and start OpenSSH
+  ansible.builtin.service:
+    name: ssh
+    enabled: true
+    state: started
+
+- name: Apply SSH changes before completing the play
+  ansible.builtin.meta: flush_handlers

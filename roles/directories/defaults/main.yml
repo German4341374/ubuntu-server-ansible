@@ -1,0 +1,10 @@
+---
+application_directories:
+  - path: /srv/apps
+    owner: root
+    group: root
+    mode: "0750"
+  - path: /srv/backups
+    owner: root
+    group: root
+    mode: "0750"

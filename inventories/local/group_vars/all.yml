@@ -1,0 +1,9 @@
+---
+admin_user_name: portfolio_admin
+admin_user_groups: [sudo, docker]
+# Reuse the key Vagrant generated for this disposable guest. Never use it in production.
+admin_authorized_keys:
+  - "{{ lookup('ansible.builtin.file', '/home/vagrant/.ssh/authorized_keys') }}"
+ssh_password_authentication: true
+ssh_permit_root_login: "prohibit-password"
+ufw_allowed_tcp_ports: [22]

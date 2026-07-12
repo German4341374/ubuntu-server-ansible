@@ -1,0 +1,40 @@
+---
+name: Bug report
+description: Report reproducible incorrect behavior without including secrets.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened and what did you expect?
+    validations:
+      required: true
+  - type: input
+    id: ubuntu
+    attributes:
+      label: Ubuntu version
+      placeholder: "24.04"
+    validations:
+      required: true
+  - type: input
+    id: ansible
+    attributes:
+      label: Ansible version
+      placeholder: "ansible-playbook --version"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps and sanitized output
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials, private keys, real addresses, and personal data.
+          required: true

@@ -1,0 +1,7 @@
+---
+managed_log_paths:
+  - /var/log/apps/*.log
+logrotate_frequency: daily
+logrotate_retention: 14
+logrotate_compress: true
+logrotate_maxsize: 100M
