@@ -25,7 +25,7 @@ test: lint syntax
 	$(VENV)/bin/pytest -q
 
 molecule:
-	$(VENV)/bin/molecule test
+	PATH="$(CURDIR)/$(VENV)/bin:$$PATH" $(VENV)/bin/molecule test
 
 up:
 	vagrant up
