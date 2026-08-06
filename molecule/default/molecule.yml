@@ -8,7 +8,8 @@ driver:
   name: docker
 platforms:
   - name: ubuntu-server-2404
-    image: geerlingguy/docker-ubuntu2404-ansible:latest
+    image: >-
+      geerlingguy/docker-ubuntu2404-ansible:latest@sha256:cb6244ccc1dc68c1d29f43acac3c46822b9e8a959032fa0af366b47936e31139
     groups:
       - ubuntu_servers
     command: /lib/systemd/systemd
