@@ -40,6 +40,8 @@ provisioner:
         # Avoid touching non-namespaced host kernel settings from a privileged container.
         safe_sysctl_settings:
           net.ipv4.tcp_syncookies: 1
+        # timesyncd exits in containers without host clock capabilities; configuration is still tested.
+        timesync_manage_service: false
 verifier:
   name: ansible
 scenario:

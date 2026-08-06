@@ -4,3 +4,4 @@ timesync_ntp_servers:
   - time.google.com
 timesync_fallback_ntp_servers:
   - ntp.ubuntu.com
+timesync_manage_service: true

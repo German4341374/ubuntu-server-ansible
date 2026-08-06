@@ -26,3 +26,4 @@
     name: systemd-timesyncd
     enabled: true
     state: started
+  when: timesync_manage_service | bool
