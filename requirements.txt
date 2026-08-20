@@ -1,5 +1,5 @@
 ansible-core==2.18.18
-ansible-lint==26.6.0
+ansible-lint==26.8.0
 docker==7.1.0
 filelock==3.32.2
 idna==3.18
