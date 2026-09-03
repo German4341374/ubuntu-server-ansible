@@ -64,7 +64,7 @@ def test_repository_documents_safety_and_demo_workflows():
     for relative_path in [
         "README.md",
         "DEMO.md",
-        "INTERVIEW.md",
+        "docs/design-notes.md",
         "SECURITY.md",
         "docs/runbooks/ssh-recovery.md",
     ]:
