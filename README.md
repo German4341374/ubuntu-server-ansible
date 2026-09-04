@@ -1,9 +1,9 @@
 # Ubuntu Server Ansible
 
-A production-style Ansible portfolio project for bootstrapping, hardening, and
-operating fresh Ubuntu Server virtual machines. It creates a key-only capable
-administrator account, applies conservative host security, installs Docker and
-common operational tooling, and provides repeatable local and CI validation.
+An Ansible setup for bootstrapping, hardening, and operating fresh Ubuntu Server
+virtual machines. It creates a key-only capable administrator account, applies
+conservative host security, installs Docker and common operational tooling, and
+keeps local and CI validation repeatable.
 
 The project is designed for learning and demonstration, but its safety model is
 deliberate: administrator access is bootstrapped and verified before SSH
@@ -257,7 +257,7 @@ change independently of this project.
 - Automatic security updates can introduce change outside an Ansible run; use a
   staged update strategy for strict production change windows.
 
-## Future improvements
+## Next infrastructure exercises
 
 - Pin the Molecule image by digest and automate dependency updates.
 - Add Ubuntu 26.04 testing after it reaches a stable support baseline.
@@ -266,7 +266,7 @@ change independently of this project.
 - Add cloud-specific ephemeral integration tests and OpenSCAP reporting.
 - Sign commits and release artifacts and generate a software bill of materials.
 
-## Interview talking points
+## Design questions
 
 - Why bootstrap and hardening are separate failure domains.
 - How handlers, templates, defaults, tags, and check mode support safe operations.
@@ -277,7 +277,7 @@ change independently of this project.
   prevent accidental disclosure.
 - How serial rollout and a console-backed SSH recovery runbook reduce blast radius.
 
-More detailed questions and model answers are in `INTERVIEW.md`.
+More detailed answers are in `docs/design-notes.md`.
 
 ## License
 
