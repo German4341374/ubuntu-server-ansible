@@ -1,13 +1,11 @@
 # Ubuntu Server Ansible
 
-An Ansible setup for bootstrapping, hardening, and operating fresh Ubuntu Server
-virtual machines. It creates a key-only capable administrator account, applies
-conservative host security, installs Docker and common operational tooling, and
-keeps local and CI validation repeatable.
+Set up a fresh Ubuntu Server VM without repeating the same commands by hand.
+The Ansible roles create an administrator account, configure SSH and the firewall,
+install Docker and admin tools, and set up updates and time synchronization.
 
-The project is designed for learning and demonstration, but its safety model is
-deliberate: administrator access is bootstrapped and verified before SSH
-hardening is applied.
+SSH changes happen in two stages: create and verify the new access first, then apply
+hardening. Read the recovery runbook before trying this on a machine you can only reach by SSH.
 
 ## Architecture
 
